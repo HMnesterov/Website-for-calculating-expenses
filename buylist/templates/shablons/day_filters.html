@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content=
+        "width=device-width,initial-scale=1.0">
+    <title>side navigation bar</title>
+    <script src="https://kit.fontawesome.com/bba3432f3f.js"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="side-nav">
+
+            <ul class="nav-links">
+                <li><a href="{% url 'filter_days' days=1 %}">
+                        <i class="fa-solid fa-house-user"></i>
+                        <p>1Day</p>
+                    </a>
+                </li>
+                <li><a href="{% url 'filter_days' days=7 %}">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        <p>7Days</p>
+                    </a>
+                </li>
+                <li><a href="{% url 'filter_days' days=14 %}">
+                        <i class="fa-solid fa-user"></i>
+                        <p>14Days</p>
+                    </a>
+                </li>
+                <li><a href="{% url 'filter_days' days=30 %}">
+                        <i class="fa-solid fa-box-open"></i>
+                        <p>30Days</p>
+                    </a>
+                </li>
+                <li><a href="{% url 'filter_days' days=365 %}">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <p>Year</p>
+                    </a>
+                    <li><a href="{% url 'filter_days' days=1000 %}">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <p>All time</p>
+                    </a>
+                </li>
+
+
+
+
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

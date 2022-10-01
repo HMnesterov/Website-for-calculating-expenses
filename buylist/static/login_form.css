@@ -1,0 +1,47 @@
+.mega {
+margin: auto;
+
+
+	width: 40%;
+	height: calc(100%/3);
+	background-color: #51e2f5;
+	border-radius: 50px;
+	font-size: 250%;
+
+	color: #3aa5e1;
+	 text-align: center;
+
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+    position: relative;
+    opacity:0; /*Элемент полностью прозрачный (невидимый)*/
+transition: 1s; /*Скорость перехода состояния элемента*/
+animation: show 2s 1; /* Указываем название анимации, её время и количество повторов*/
+animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
+animation-delay: 1s; /* Задержка перед началом */
+}
+@keyframes show{
+0%{
+opacity:0;
+}
+100% {
+opacity:1;
+}
+}
+
+
+}
+
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.item {
+  flex: 0 1 calc(100%/3 - 20px*2);
+  margin: 20px;
+}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content_1 %}
+ {% load crispy_forms_tags%}
+
+{% include 'shablons/navbar.html' %}
+
+
+
+<form class="mega" method="post">
+
+    {% csrf_token %}
+
+   {{form|crispy}}
+
+
+<button class="form-button" type="submit">Send</button>
+
+</form>
+
+
+
+
+{% endblock %}
