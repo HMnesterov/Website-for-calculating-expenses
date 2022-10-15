@@ -1,4 +1,7 @@
-from .filter_functions import any_day_filter, this_day, filter_categories_by_user
+import datetime
+
+from .filter_functions import any_day_filter, this_day, filter_categories_by_user, all_days, filter_by_two_datefields, \
+    from_str_to_datetime_obj
 from django.contrib.auth import login, logout
 
 from django.http import HttpResponse
@@ -8,7 +11,7 @@ from django.urls import reverse_lazy
 
 from django.contrib import messages
 
-from .forms import ItemForm, CategoryForm, RegisterForm, LoginForm
+from .forms import ItemForm, CategoryForm, RegisterForm, LoginForm, ChooseDifference, DateForm
 
 
 def start(request):
@@ -16,9 +19,9 @@ def start(request):
         queryset = this_day(request)
         return render(request, 'shablons/start_page.html',
                       {'values': queryset})
-    return render(request, 'shablons/start_page.html', {'type': 'категориям'})
+    return render(request, 'shablons/start_page.html')
 
-
+@login_required(login_url=reverse_lazy('login'))
 def filter_by_days(request, days):
     if request.user.is_authenticated:
         queryset = any_day_filter(request, days)
@@ -81,7 +84,6 @@ def register(request):
             if form.is_valid():
                 user = form.save()
                 login(request=request, user=user)
-                messages.success(request, 'Registration completed successfully')
                 return redirect('start')
 
         except:
@@ -103,9 +105,27 @@ def authorization(request):
 
     return render(request, 'shablons/register.html', {'form': form})
 
-
+@login_required(login_url=reverse_lazy('login'))
 def logout_user(request):
     logout(request)
     return redirect('login')
 
-# python manage.py runserver
+@login_required(login_url=reverse_lazy('login'))
+def see_difference_between_values(request, queryset1, queryset2, queryset3, queryset4):
+    queryset1, queryset2, queryset3, queryset4 = from_str_to_datetime_obj(queryset1, queryset2, queryset3, queryset4)
+    stats1, stats2 = filter_by_two_datefields(request, queryset1, queryset2, queryset3, queryset4)
+
+
+    return render(request, 'shablons/difference.html', {'stats1': stats1, 'stats2': stats2})
+
+@login_required(login_url=reverse_lazy('login'))
+def SeeDifference(request):
+    form = DateForm()
+    if request.method == 'POST':
+        form = DateForm(request.POST)
+        if form.is_valid():
+            return redirect('difference', queryset1=form.cleaned_data['date1'],
+                            queryset2=form.cleaned_data['date1_end'], queryset3=form.cleaned_data['date2']
+                            , queryset4=form.cleaned_data['date2_end'])
+
+    return render(request, 'shablons/test.html', {'form': form})

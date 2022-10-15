@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Home {% endblock %}
+
+
+{% block content_1 %}
+{% include 'shablons/navbar.html' %}
+<h1>
+    Отсчёт:
+</h1>
+<p>
+    За первый период вы потратили:
+</p>
+{%  for category, money in stats1.items %}
+{{money}} в категории {{category}} |
+{% endfor %}
+<p>
+    За второй период вы потратили:
+</p>
+{%  for category, money in stats2.items %}
+{{money}} в категории {{category}} |
+{% endfor %}
+{% endblock %}
+

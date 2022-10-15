@@ -25,8 +25,5 @@ class Item(models.Model):
 
 
 
-class CurrentUser(models.Model):
-    user = models.CharField(max_length=100)
-    items = models.ForeignKey(Item, on_delete=models.CASCADE, blank=True)
 
 
