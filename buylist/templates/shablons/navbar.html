@@ -1,7 +1,7 @@
 <div>
 <nav class="nav">
 	<a href="{% url 'start' %}">Home</a>
-	<a href="#">About</a>
+	<a href="{% url 'form' %}">Sort</a>
 	{% if request.user.is_authenticated %}
 	<a href="{% url 'logout' %}">Sigh Out</a>
 	<a href="{% url 'add_item' %}">Add Item</a>
@@ -9,6 +9,7 @@
 	{% else %}
 	<a href="{% url 'register' %}">Register</a>
 	<a href="{% url 'login' %}">Login</a>
+
 	{% endif %}
 	<div class="animation start-home"></div>
 	</nav>

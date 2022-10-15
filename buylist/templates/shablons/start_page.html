@@ -16,57 +16,34 @@ Welcome!
 {% if request.user.is_authenticated %}
 
 {% include 'shablons/day_filters.html' %}
-<center>
-<div class="for_d">
-<div class="col-md-8">
-        <canvas id="myChart" width="150" height="100" ></canvas>
-        <script>
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var myChart = new Chart(ctx, { responsive: true, scaleFontColor: "red",
-                type: 'bar',
-                data: {
-                    labels: [{% for value in values %} '{{ value }}', {% endfor %}],
-            datasets: [{
-                label: 'Ваши траты по {{type)):',
-                data: [{% for value in values.values %} {{ value }}, {% endfor %}],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+<div id="container">
+    <canvas id="pie-chart" width="10%"></canvas>
 
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                        borderWidth: 10,
-            }]
-                },
-            options: {
-                scales: { scaleLabel: {
-                                            display  : true,
-                                            fontSize : 50,
-                                            fontColor: "#4a4a4a"
-                                        },
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-            });
-        </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script><script>
+    var config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: [{% for value in values.values %} {{ value }}, {% endfor %}],
+
+          backgroundColor: [
+            '#ff0000', '#0000ff', '#ff0080', '#73ffff', '#5c26ff', '#002db3', '#ffff26', '#4cff4c', '#ff00ff'
+          ],
+          label: 'Money'
+        }],
+        labels: [{% for item in values %}'{{ item }}', {% endfor %}]
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+  </script>
     </div>
-</div>
-    </center>
 {% else %}
 <p class="p_non_log_text">To get started with the application, <a href="{% url 'register' %}">create your account</a></p>
 
