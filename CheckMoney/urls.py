@@ -22,7 +22,6 @@ from buylist import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('__debug__/', include('debug_toolbar.urls')),
     path('', include(urls)),
 ]
 if settings.DEBUG:
